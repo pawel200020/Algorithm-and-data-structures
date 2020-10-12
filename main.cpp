@@ -91,7 +91,6 @@ private:
     }
 
     void Test() {
-        srand(time(NULL));
         int size = rand() % 10 + 200;
         int *array = new int[size];
         int *arrayrecived;
@@ -121,6 +120,7 @@ private:
     }
 
     void TesterMaster(int testNumbers) {
+        srand(time(NULL));
         for (int i = 0; i < testNumbers; i++) {
             printf("\n%s%d%s\n\n", "--------------------------------TEST ID: ", i,"--------------------------------");
             Test();
