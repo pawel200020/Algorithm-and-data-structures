@@ -1,6 +1,14 @@
 #ifndef INC_2020_10_13_HOMEWORK_CLASSES_H
 #define INC_2020_10_13_HOMEWORK_CLASSES_H
 
+class INSERTION_SORT_CLASS;
+
+class HEAP_SORT_CLASS;
+
+class TEST_CLASS;
+
+class MERGE_SORT_CLASS;
+
 class HEAP_SORT_CLASS {
     void heapify(int *, int, int);
 
