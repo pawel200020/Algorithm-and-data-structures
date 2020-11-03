@@ -156,7 +156,7 @@ void TEST_CLASS::test(char algorithm) {
                 for (int i = 0; i < numberOfTests; i++) {
                     printf("Test id: %d \n", i);
                     displayArray(HugeTestArray[i], sizeOfArray);
-                    m1.mergeSort(HugeTestArray[i], 0, sizeOfArray);
+                    m1.mergeSort(HugeTestArray[i], 0, sizeOfArray-1);
                     displayArray(HugeTestArray[i], sizeOfArray);
                     printf("\n");
                 }
