@@ -130,6 +130,7 @@ void TEST_CLASS::test(char algorithm) {
     }
     switch (algorithm) {
         case 'h': {
+            printf("Heap sort algortihm\n");
             HEAP_SORT_CLASS h1;
             for (int i = 0; i < numberOfTests; i++) {
                 printf("Test id: %d \n", i);
@@ -139,6 +140,7 @@ void TEST_CLASS::test(char algorithm) {
                 printf("\n");
             }
             case 'i': {
+                printf("Insertion sort algortihm\n");
                 INSERTION_SORT_CLASS i1;
                 for (int i = 0; i < numberOfTests; i++) {
                     printf("Test id: %d \n", i);
@@ -149,6 +151,7 @@ void TEST_CLASS::test(char algorithm) {
                 }
             }
             case 'm': {
+                printf("Merge sort algortihm\n");
                 MERGE_SORT_CLASS m1;
                 for (int i = 0; i < numberOfTests; i++) {
                     printf("Test id: %d \n", i);
