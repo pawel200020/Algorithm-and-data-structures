@@ -1,34 +1,35 @@
 #ifndef INC_2020_10_13_HOMEWORK_CLASSES_H
 #define INC_2020_10_13_HOMEWORK_CLASSES_H
 
-class INSERTION_SORT_CLASS;
-
-class HEAP_SORT_CLASS;
+class HEAP_CLASS;
 
 class TEST_CLASS;
 
-class MERGE_SORT_CLASS;
+class SORT_CLASS;
 
-class HEAP_SORT_CLASS {
+class HEAP_CLASS {
+public:
     void heapify(int *, int, int);
 
     void bulid_heap(int, int *);
 
-public:
-    void heapSort(int *, int);
+    int findParent(int a);
+
+    int findSon(int, int);
+
 };
 
-class MERGE_SORT_CLASS {
+class SORT_CLASS {
+
     void merge(int *, int, int, int);
 
 public:
     void mergeSort(int *array, int left, int right);
-};
 
-class INSERTION_SORT_CLASS {
+    void InserionSort(int *, int);
 
-public:
-    void sort(int *, int);
+    void heapSort(int *, int);
+
 };
 
 class TEST_CLASS {

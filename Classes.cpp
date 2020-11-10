@@ -4,10 +4,22 @@
 #include <algorithm>
 #include "Classes.h"
 
-void HEAP_SORT_CLASS::heapify(int *array, int size, int i) {
+int HEAP_CLASS::findSon(int i, int which) {
+    if (which == 0) {
+        return 2 * i + 1;
+    } else {
+        return 2 * i + 2;
+    }
+}
+
+int HEAP_CLASS::findParent(int a) {
+    return (a-1) / 2;
+}
+
+void HEAP_CLASS::heapify(int *array, int size, int i) {
     int largest = i;
-    int left_i = 2 * i + 1;
-    int right_i = 2 * i + 2;
+    int left_i = findSon(i, 0);
+    int right_i = findSon(i, 1);
 
     if (left_i < size && array[left_i] > array[largest]) {
         largest = left_i;
@@ -22,23 +34,26 @@ void HEAP_SORT_CLASS::heapify(int *array, int size, int i) {
 }
 
 
-void HEAP_SORT_CLASS::bulid_heap(int size, int *array) {
+void HEAP_CLASS::bulid_heap(int size, int *array) {
     for (int i = size / 2 - 1; i >= 0; i--) {
         heapify(array, size, i);
     }
 }
 
 
-void HEAP_SORT_CLASS::heapSort(int *array, int size) {
-    bulid_heap(size, array);
+void SORT_CLASS::heapSort(int *array, int size) {
+    HEAP_CLASS* heap = new HEAP_CLASS;
+    heap->bulid_heap(size, array);
     for (int i = size - 1; i > 0; i--) {
         std::swap(array[0], array[i]);
-        heapify(array, i, 0);
+        heap->heapify(array, i, 0);
     }
+    delete heap;
+
 }
 
 
-void MERGE_SORT_CLASS::merge(int arr[], int left, int divide, int right) {
+void SORT_CLASS::merge(int arr[], int left, int divide, int right) {
     int array1size = divide - left + 1;
     int array2size = right - divide;
     int *Left = new int[array1size];
@@ -81,7 +96,7 @@ void MERGE_SORT_CLASS::merge(int arr[], int left, int divide, int right) {
 }
 
 
-void MERGE_SORT_CLASS::mergeSort(int *array, int left, int right) {
+void SORT_CLASS::mergeSort(int *array, int left, int right) {
     if (left < right) {
         int divide = left + (right - left) / 2;
         mergeSort(array, left, divide);
@@ -91,7 +106,7 @@ void MERGE_SORT_CLASS::mergeSort(int *array, int left, int right) {
 }
 
 
-void INSERTION_SORT_CLASS::sort(int *array, int size) {
+void SORT_CLASS::InserionSort(int *array, int size) {
     for (int j = 1; j < size; j++) {
         int i = j - 1;
         int elem = array[j];
@@ -128,35 +143,35 @@ void TEST_CLASS::test(char algorithm) {
         }
 
     }
+    SORT_CLASS* t1 = new SORT_CLASS;
     switch (algorithm) {
         case 'h': {
             printf("Heap sort algortihm\n");
-            HEAP_SORT_CLASS h1;
+
             for (int i = 0; i < numberOfTests; i++) {
                 printf("Test id: %d \n", i);
                 displayArray(HugeTestArray[i], sizeOfArray);
-                h1.heapSort(HugeTestArray[i], sizeOfArray);
+                t1->heapSort(HugeTestArray[i], sizeOfArray);
                 displayArray(HugeTestArray[i], sizeOfArray);
                 printf("\n");
             }
             case 'i': {
                 printf("Insertion sort algortihm\n");
-                INSERTION_SORT_CLASS i1;
+
                 for (int i = 0; i < numberOfTests; i++) {
                     printf("Test id: %d \n", i);
                     displayArray(HugeTestArray[i], sizeOfArray);
-                    i1.sort(HugeTestArray[i], sizeOfArray);
+                    t1->InserionSort(HugeTestArray[i], sizeOfArray);
                     displayArray(HugeTestArray[i], sizeOfArray);
                     printf("\n");
                 }
             }
             case 'm': {
                 printf("Merge sort algortihm\n");
-                MERGE_SORT_CLASS m1;
                 for (int i = 0; i < numberOfTests; i++) {
                     printf("Test id: %d \n", i);
                     displayArray(HugeTestArray[i], sizeOfArray);
-                    m1.mergeSort(HugeTestArray[i], 0, sizeOfArray-1);
+                    t1->mergeSort(HugeTestArray[i], 0, sizeOfArray - 1);
                     displayArray(HugeTestArray[i], sizeOfArray);
                     printf("\n");
                 }
