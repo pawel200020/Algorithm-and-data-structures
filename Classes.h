@@ -26,7 +26,7 @@ class SORT_CLASS {
 public:
     void mergeSort(int *array, int left, int right);
 
-    void InserionSort(int *, int);
+    void InsertionSort(int *, int);
 
     void heapSort(int *, int);
 

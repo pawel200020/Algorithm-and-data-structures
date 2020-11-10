@@ -106,7 +106,7 @@ void SORT_CLASS::mergeSort(int *array, int left, int right) {
 }
 
 
-void SORT_CLASS::InserionSort(int *array, int size) {
+void SORT_CLASS::InsertionSort(int *array, int size) {
     for (int j = 1; j < size; j++) {
         int i = j - 1;
         int elem = array[j];
@@ -161,7 +161,7 @@ void TEST_CLASS::test(char algorithm) {
                 for (int i = 0; i < numberOfTests; i++) {
                     printf("Test id: %d \n", i);
                     displayArray(HugeTestArray[i], sizeOfArray);
-                    t1->InserionSort(HugeTestArray[i], sizeOfArray);
+                    t1->InsertionSort(HugeTestArray[i], sizeOfArray);
                     displayArray(HugeTestArray[i], sizeOfArray);
                     printf("\n");
                 }
@@ -177,9 +177,12 @@ void TEST_CLASS::test(char algorithm) {
                 }
             }
         }
-
-
     }
+    delete t1;
+    for (int i = 0; i < numberOfTests; i++) {
+        delete [] HugeTestArray[i];
+    }
+    delete [] HugeTestArray;
 
 }
 
