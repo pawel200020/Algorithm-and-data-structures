@@ -13,7 +13,7 @@ int HEAP_CLASS::findSon(int i, int which) {
 }
 
 int HEAP_CLASS::findParent(int a) {
-    return (a-1) / 2;
+    return (a - 1) / 2;
 }
 
 void HEAP_CLASS::heapify(int *array, int size, int i) {
@@ -42,7 +42,7 @@ void HEAP_CLASS::bulid_heap(int size, int *array) {
 
 
 void SORT_CLASS::heapSort(int *array, int size) {
-    HEAP_CLASS* heap = new HEAP_CLASS;
+    HEAP_CLASS *heap = new HEAP_CLASS;
     heap->bulid_heap(size, array);
     for (int i = size - 1; i > 0; i--) {
         std::swap(array[0], array[i]);
@@ -118,6 +118,107 @@ void SORT_CLASS::InsertionSort(int *array, int size) {
     }
 }
 
+//////////////////
+BST_TREE_CLASS::node *BST_TREE_CLASS::makeEmpty(BST_TREE_CLASS::node *t) {
+    if (t == NULL)
+        return NULL;
+    {
+        makeEmpty(t->left);
+        makeEmpty(t->right);
+        delete t;
+    }
+    return NULL;
+}
+
+BST_TREE_CLASS::node *BST_TREE_CLASS::insert(int x, node *t) {
+    if (t == NULL) {
+        t = new node;
+        t->data = x;
+        t->left = t->right = NULL;
+    } else if (x < t->data)
+        t->left = insert(x, t->left);
+    else if (x > t->data)
+        t->right = insert(x, t->right);
+    return t;
+}
+
+BST_TREE_CLASS::node *BST_TREE_CLASS::findMin(BST_TREE_CLASS::node *t) {
+    if (t == NULL) { return NULL; }
+    else if (t->left == NULL) { return t; }
+    else { findMin(t->left); }
+}
+
+BST_TREE_CLASS::node *BST_TREE_CLASS::findMax(BST_TREE_CLASS::node *t) {
+    if (t == NULL) { return NULL; }
+    else if (t->right == NULL) { return t; }
+    else { findMin(t->right); }
+}
+
+BST_TREE_CLASS::node *BST_TREE_CLASS::remove(int x, node *t) {
+    node *temp;
+    if (t == NULL)
+        return NULL;
+    else if (x < t->data)
+        t->left = remove(x, t->left);
+    else if (x > t->data)
+        t->right = remove(x, t->right);
+    else if (t->left && t->right) {
+        temp = findMin(t->right);
+        t->data = temp->data;
+        t->right = remove(t->data, t->right);
+    } else {
+        temp = t;
+        if (t->left == NULL)
+            t = t->right;
+        else if (t->right == NULL)
+            t = t->left;
+        delete temp;
+    }
+
+    return t;
+}
+void BST_TREE_CLASS::inorder(node* t) {
+    if(t == NULL)
+        return;
+    inorder(t->left);
+    printf("%d%c", t->data," ");
+    inorder(t->right);
+}
+BST_TREE_CLASS::node* BST_TREE_CLASS::find(node* t, int x) {
+    if(t == NULL)
+        return NULL;
+    else if(x < t->data)
+        return find(t->left, x);
+    else if(x > t->data)
+        return find(t->right, x);
+    else
+        return t;
+}
+BST_TREE_CLASS::BST_TREE_CLASS() {
+    root = NULL;
+}
+
+BST_TREE_CLASS::~BST_TREE_CLASS() {
+    root = makeEmpty(root);
+}
+
+void BST_TREE_CLASS::insert(int x) {
+    root = insert(x, root);
+}
+
+void  BST_TREE_CLASS::remove(int x) {
+    root = remove(x, root);
+}
+
+void  BST_TREE_CLASS::display() {
+    inorder(root);
+    printf("\n");
+}
+
+void  BST_TREE_CLASS::search(int x) {
+    root = find(root, x);
+}
+//////////////////
 
 TEST_CLASS::TEST_CLASS(int numberOfTests, int sizeOfArray) {
     this->numberOfTests = numberOfTests;
@@ -143,7 +244,7 @@ void TEST_CLASS::test(char algorithm) {
         }
 
     }
-    SORT_CLASS* t1 = new SORT_CLASS;
+    SORT_CLASS *t1 = new SORT_CLASS;
     switch (algorithm) {
         case 'h': {
             printf("Heap sort algortihm\n");
@@ -180,10 +281,9 @@ void TEST_CLASS::test(char algorithm) {
     }
     delete t1;
     for (int i = 0; i < numberOfTests; i++) {
-        delete [] HugeTestArray[i];
+        delete[] HugeTestArray[i];
     }
-    delete [] HugeTestArray;
-
+    delete[] HugeTestArray;
 }
 
 
