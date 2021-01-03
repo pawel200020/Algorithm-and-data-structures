@@ -1,5 +1,8 @@
 #ifndef INC_2020_10_13_HOMEWORK_CLASSES_H
 #define INC_2020_10_13_HOMEWORK_CLASSES_H
+enum Color {
+    RED, BLACK
+};
 
 class HEAP_CLASS;
 
@@ -31,34 +34,37 @@ public:
     void heapSort(int *, int);
 
 };
-
 class BST_TREE_CLASS {
-    struct node {
+    struct Node {
         int data;
-        node *left;
-        node *right;
+        Node *left;
+        Node *right;
     };
 
-    node *root;
+    Node *root;
 
-    node *makeEmpty(node *t);
+    Node *makeEmpty(Node *t);
 
-    node *insert(int x, node *t);
+    Node *insert(int x, Node *t);
 
-    node *findMin(node *t);
+    Node *findMin(Node *t);
 
-    node *findMax(node *t);
+    Node *findMax(Node *t);
 
-    node *remove(int x, node *t);
+    Node *remove(int x, Node *t);
 
-    void inorder(node *t);
-
-    node *find(node *t, int x);
+    Node *find(Node *t, int x);
 
 public:
     BST_TREE_CLASS();
 
     ~BST_TREE_CLASS();
+
+    void inorder(Node *t);
+
+    void preorder(Node *t);
+
+    void postorder(Node *t);
 
     void insert(int x);
 
@@ -67,6 +73,62 @@ public:
     void display();
 
     void search(int x);
+};
+
+class RED_BLACK_TREE_CLASS {
+public:
+    struct Node {
+        int data;
+        bool color;
+        Node *left, *right, *parent;
+
+        Node(int);
+    };
+
+    Node *root;
+protected:
+    void rotateLeft(Node *&, Node *&);
+
+    void rotateRight(Node *&, Node *&);
+
+    void fixViolation(Node *&, Node *&);
+
+public:
+    RED_BLACK_TREE_CLASS();
+
+    void insert(const int &n);
+
+};
+
+class AVL_TREE_CLASS {
+public:
+    struct Node {
+        int key;
+        Node *left;
+        Node *right;
+        int height;
+    };
+private:
+
+    int height(Node *);
+
+    int max(int, int);
+
+    Node *newNode(int);
+
+    Node *rightRotate(Node *);
+
+    Node *leftRotate(Node *);
+
+    int getBalance(Node *);
+
+public:
+    Node *insert(Node *, int);
+
+    Node *minValueNode(Node *);
+
+    Node *deleteNode(Node *, int);
+
 };
 
 class TEST_CLASS {
