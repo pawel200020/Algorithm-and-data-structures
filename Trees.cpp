@@ -494,8 +494,8 @@ AVL_TREE_CLASS::Node *AVL_TREE_CLASS::minValueNode(Node *node) {
 
 AVL_TREE_CLASS::Node *AVL_TREE_CLASS::remove(Node *root, int key) {
     if (root == NULL) return root;
-    if (key < root->data) root->left = removeroot(root->left, key);
-    else if (key > root->data) root->right = removeroot(root->right, key);
+    if (key < root->data) root->left = remove(root->left, key);
+    else if (key > root->data) root->right = remove(root->right, key);
     else {
         if ((root->left == NULL) || (root->right == NULL)) {
             Node *temp = root->left ? root->left : root->right;
@@ -511,7 +511,7 @@ AVL_TREE_CLASS::Node *AVL_TREE_CLASS::remove(Node *root, int key) {
             Node *temp = minValueNode(root->right);
             root->data = temp->data;
 
-            root->right = removeroot(root->right, temp->data);
+            root->right = remove(root->right, temp->data);
         }
     }
 
