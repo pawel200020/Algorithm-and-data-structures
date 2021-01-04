@@ -4,16 +4,17 @@ enum Color {
     RED, BLACK
 };
 
-class TREE{
+class TREE {
 protected:
     struct Node {
         int data;
         Color color;
         Node *left, *right, *parent;
         int height;
+
         Node(int);
 
-        Node ();
+        Node();
 
         bool isOnLeft();
 
@@ -26,87 +27,79 @@ protected:
         bool hasRedChild();
     };
 
-    void inorder(Node *t);
-
-    void preorder(Node *t);
-
-    void postorder(Node *t);
-
-};
-
-class BST_TREE_CLASS: public TREE {
-
     Node *root;
 
-    Node *makeEmpty(Node *t);
+    Node *makeEmpty(Node *);
 
-    Node *insert(int x, Node *t);
+    void inorder(Node *);
 
-    Node *findMin(Node *t);
+    void preorder(Node *);
 
-    Node *findMax(Node *t);
+    void postorder(Node *);
 
-    Node *remove(int x, Node *t);
+public:
+    void display(char);
 
-    Node *find(Node *t, int x);
+    Node *search(int);
+};
+
+class BST_TREE_CLASS : public TREE {
+
+    Node *insert(int, Node *);
+
+    Node *findMin(Node *);
+
+    Node *remove(int, Node *);
 
 public:
     BST_TREE_CLASS();
 
     ~BST_TREE_CLASS();
 
-    void insert(int x);
+    void insert(int);
 
-    void remove(int x);
+    void remove(int);
 
-    Node *search(int x);
-
-    void display(char);
 
 };
 
 class RED_BLACK_TREE_CLASS2 : public TREE {
 
-    Node *root;
+    void leftRotate(Node *);
 
-    void leftRotate(Node *x);
+    void rightRotate(Node *);
 
-    void rightRotate(Node *x);
+    void swapColors(Node *, Node *);
 
-    void swapColors(Node *x1, Node *x2);
+    void swapValues(Node *, Node *);
 
-    void swapValues(Node *u, Node *v);
+    void fixRedRed(Node *);
 
-    void fixRedRed(Node *x);
+    Node *successor(Node *);
 
-    Node *successor(Node *x);
+    Node *BSTreplace(Node *);
 
-    Node *BSTreplace(Node *x);
+    void deleteNode(Node *);
 
-    void deleteNode(Node *v);
-
-    void fixDoubleBlack(Node *x);
+    void fixDoubleBlack(Node *);
 
 public:
 
     RED_BLACK_TREE_CLASS2();
 
-    Node *getRoot();
+    ~RED_BLACK_TREE_CLASS2();
 
-    Node *search(int n);
+    void insert(int);
 
-    void insert(int n);
-
-    void remove(int n);
-
-    void display(char);
+    void remove(int);
 
 };
 
-class AVL_TREE_CLASS : public TREE{
+class AVL_TREE_CLASS : public TREE {
 
 private:
-    Node * root;
+
+
     int height(Node *);
 
     int max(int, int);
@@ -119,21 +112,20 @@ private:
 
     int getBalance(Node *);
 
-    Node *insertroot(Node *, int);
+    Node *insert(Node *, int);
 
-    Node *minValueNoderoot(Node *);
+    Node *minValueNode(Node *);
 
-    Node *removeroot(Node *, int);
+    Node *remove(Node *, int);
 
 public:
     AVL_TREE_CLASS();
 
+    ~AVL_TREE_CLASS();
+
     void insert(int);
 
     void remove(int);
-
-    void display(char);
-
 
 };
 

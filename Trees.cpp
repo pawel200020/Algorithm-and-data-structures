@@ -65,17 +65,48 @@ void TREE::postorder(Node *t) {
 
 TREE::Node::Node() {}
 
-/////////////////////BST trees/////////////////////////////////////////////////////////
-BST_TREE_CLASS::Node *BST_TREE_CLASS::makeEmpty(BST_TREE_CLASS::Node *t) {
+void TREE::display(char option) {
+    if (option == 'i') { inorder(root); }
+    else if (option == 'r') { preorder(root); }
+    else if (option == 'o') { postorder(root); }
+    else { printf("wrong char!\n"); }
+    printf("\n");
+}
+
+TREE::Node *TREE::makeEmpty(BST_TREE_CLASS::Node *t) {
     if (t == NULL)
         return NULL;
-    {
+    else {
         makeEmpty(t->left);
         makeEmpty(t->right);
         delete t;
+        return NULL;
     }
-    return NULL;
+
 }
+
+TREE::Node *TREE::search(int n) {
+    Node *temp = root;
+    while (temp != NULL) {
+        if (n < temp->data) {
+            if (temp->left == NULL)
+                break;
+            else
+                temp = temp->left;
+        } else if (n == temp->data) {
+            break;
+        } else {
+            if (temp->right == NULL)
+                break;
+            else
+                temp = temp->right;
+        }
+    }
+
+    return temp;
+}
+
+/////////////////////BST trees///////////////////////////////////
 
 BST_TREE_CLASS::Node *BST_TREE_CLASS::insert(int x, Node *t) {
     if (t == NULL) {
@@ -93,12 +124,6 @@ BST_TREE_CLASS::Node *BST_TREE_CLASS::findMin(BST_TREE_CLASS::Node *t) {
     if (t == NULL) { return NULL; }
     else if (t->left == NULL) { return t; }
     else { return findMin(t->left); }
-}
-
-BST_TREE_CLASS::Node *BST_TREE_CLASS::findMax(BST_TREE_CLASS::Node *t) {
-    if (t == NULL) { return NULL; }
-    else if (t->right == NULL) { return t; }
-    else { return findMin(t->right); }
 }
 
 BST_TREE_CLASS::Node *BST_TREE_CLASS::remove(int x, Node *t) {
@@ -125,17 +150,6 @@ BST_TREE_CLASS::Node *BST_TREE_CLASS::remove(int x, Node *t) {
     return t;
 }
 
-BST_TREE_CLASS::Node *BST_TREE_CLASS::find(Node *t, int x) {
-    if (t == NULL)
-        return NULL;
-    else if (x < t->data)
-        return find(t->left, x);
-    else if (x > t->data)
-        return find(t->right, x);
-    else
-        return t;
-}
-
 BST_TREE_CLASS::BST_TREE_CLASS() {
     root = NULL;
 }
@@ -152,19 +166,6 @@ void BST_TREE_CLASS::remove(int x) {
     root = remove(x, root);
 }
 
-void BST_TREE_CLASS::display(char option) {
-    if (option == 'i') { inorder(root); }
-    else if (option == 'r') { preorder(root); }
-    else if (option == 'o') { postorder(root); }
-    else { printf("wrong char!\n"); }
-    printf("\n");
-}
-
-BST_TREE_CLASS::Node *BST_TREE_CLASS::search(int x) {
-    Node *temp = find(root, x);
-    return temp;
-}
-
 ////////////////Red Black trees////////////////////////////////
 RED_BLACK_TREE_CLASS2::Node::Node(int data) {
     this->data = data;
@@ -174,46 +175,31 @@ RED_BLACK_TREE_CLASS2::Node::Node(int data) {
 
 void RED_BLACK_TREE_CLASS2::rightRotate(Node *x) {
 
-    // new parent will be node's left child
-    Node *nParent = x->left;
+    Node *newParent = x->left;
 
-    // update root if current node is root
-    if (x == root)
-        root = nParent;
+    if (x == root) root = newParent;
 
-    x->moveDown(nParent);
+    x->moveDown(newParent);
 
-    // connect x with new parent's right element
-    x->left = nParent->right;
-    // connect new parent's right element with node
-    // if it is not null
-    if (nParent->right != NULL)
-        nParent->right->parent = x;
+    x->left = newParent->right;
+    if (newParent->right != NULL)
+        newParent->right->parent = x;
 
-    // connect new parent with x
-    nParent->right = x;
+    newParent->right = x;
 }
 
 void RED_BLACK_TREE_CLASS2::leftRotate(Node *x) {
 
-    // new parent will be node's right child
-    Node *nParent = x->right;
+    Node *newParent = x->right;
 
-    // update root if current node is root
-    if (x == root)
-        root = nParent;
+    if (x == root) root = newParent;
 
-    x->moveDown(nParent);
+    x->moveDown(newParent);
+    x->right = newParent->left;
+    if (newParent->left != NULL)
+        newParent->left->parent = x;
 
-    // connect x with new parent's left element
-    x->right = nParent->left;
-    // connect new parent's left element with node
-    // if it is not null
-    if (nParent->left != NULL)
-        nParent->left->parent = x;
-
-    // connect new parent with x
-    nParent->left = x;
+    newParent->left = x;
 }
 
 void RED_BLACK_TREE_CLASS2::swapColors(Node *x1, Node *x2) {
@@ -223,11 +209,11 @@ void RED_BLACK_TREE_CLASS2::swapColors(Node *x1, Node *x2) {
     x2->color = temp;
 }
 
-void RED_BLACK_TREE_CLASS2::swapValues(Node *u, Node *v) {
+void RED_BLACK_TREE_CLASS2::swapValues(Node *x1, Node *x2) {
     int temp;
-    temp = u->data;
-    u->data = v->data;
-    v->data = temp;
+    temp = x1->data;
+    x1->data = x2->data;
+    x2->data = temp;
 }
 
 void RED_BLACK_TREE_CLASS2::fixRedRed(Node *x) {
@@ -236,8 +222,9 @@ void RED_BLACK_TREE_CLASS2::fixRedRed(Node *x) {
         return;
     }
 
-    Node *parent = x->parent, *grandparent = parent->parent,
-            *uncle = x->uncle();
+    Node *parent = x->parent;
+    Node *grandparent = parent->parent;
+    Node *uncle = x->uncle();
 
     if (parent->color != BLACK) {
         if (uncle != NULL && uncle->color == RED) {
@@ -395,29 +382,6 @@ void RED_BLACK_TREE_CLASS2::insert(int n) {
     }
 }
 
-RED_BLACK_TREE_CLASS2::Node *RED_BLACK_TREE_CLASS2::getRoot() { return root; }
-
-RED_BLACK_TREE_CLASS2::Node *RED_BLACK_TREE_CLASS2::search(int n) {
-    Node *temp = root;
-    while (temp != NULL) {
-        if (n < temp->data) {
-            if (temp->left == NULL)
-                break;
-            else
-                temp = temp->left;
-        } else if (n == temp->data) {
-            break;
-        } else {
-            if (temp->right == NULL)
-                break;
-            else
-                temp = temp->right;
-        }
-    }
-
-    return temp;
-}
-
 void RED_BLACK_TREE_CLASS2::remove(int n) {
     if (root == NULL)
         // Tree is empty
@@ -433,16 +397,12 @@ void RED_BLACK_TREE_CLASS2::remove(int n) {
     deleteNode(v);
 }
 
-void RED_BLACK_TREE_CLASS2::display(char option) {
-    if (option == 'i') { inorder(root); }
-    else if (option == 'r') { preorder(root); }
-    else if (option == 'o') { postorder(root); }
-    else { printf("wrong char!\n"); }
-    printf("\n");
-}
-
 RED_BLACK_TREE_CLASS2::RED_BLACK_TREE_CLASS2() {
     root = NULL;
+}
+
+RED_BLACK_TREE_CLASS2::~RED_BLACK_TREE_CLASS2() {
+    root = makeEmpty(root);
 }
 
 //////////////////AVL trees////////////////////////////
@@ -459,18 +419,30 @@ AVL_TREE_CLASS::Node *AVL_TREE_CLASS::rightRotate(Node *y) {
     Node *x = y->left;
     Node *T2 = x->right;
 
-    // Perform rotation
     x->right = y;
     y->left = T2;
 
-    // Update heights
     y->height = max(height(y->left),
                     height(y->right)) + 1;
     x->height = max(height(x->left),
                     height(x->right)) + 1;
 
-    // Return new root
     return x;
+}
+
+AVL_TREE_CLASS::Node *AVL_TREE_CLASS::leftRotate(Node *x) {
+    Node *y = x->right;
+    Node *T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
+    x->height = max(height(x->left),
+                    height(x->right)) + 1;
+    y->height = max(height(y->left),
+                    height(y->right)) + 1;
+
+    return y;
 }
 
 int AVL_TREE_CLASS::max(int a, int b) {
@@ -483,33 +455,15 @@ int AVL_TREE_CLASS::height(Node *N) {
     return N->height;
 }
 
-AVL_TREE_CLASS::Node *AVL_TREE_CLASS::leftRotate(Node *x) {
-    Node *y = x->right;
-    Node *T2 = y->left;
-
-    // Perform rotation
-    y->left = x;
-    x->right = T2;
-
-    // Update heights
-    x->height = max(height(x->left),
-                    height(x->right)) + 1;
-    y->height = max(height(y->left),
-                    height(y->right)) + 1;
-
-    // Return new root
-    return y;
-}
-
 int AVL_TREE_CLASS::getBalance(AVL_TREE_CLASS::Node *N) {
     if (N == NULL) return 0;
     return height(N->left) - height(N->right);
 }
 
-AVL_TREE_CLASS::Node *AVL_TREE_CLASS::insertroot(Node *node, int key) {
+AVL_TREE_CLASS::Node *AVL_TREE_CLASS::insert(Node *node, int key) {
     if (node == NULL) return (newNode(key));
-    if (key < node->data) node->left = insertroot(node->left, key);
-    else if (key >= node->data) node->right = insertroot(node->right, key);
+    if (key < node->data) node->left = insert(node->left, key);
+    else if (key >= node->data) node->right = insert(node->right, key);
     node->height = 1 + max(height(node->left), height(node->right));
     int balance = getBalance(node);
 
@@ -532,13 +486,13 @@ AVL_TREE_CLASS::Node *AVL_TREE_CLASS::insertroot(Node *node, int key) {
     return node;
 }
 
-AVL_TREE_CLASS::Node *AVL_TREE_CLASS::minValueNoderoot(Node *node) {
+AVL_TREE_CLASS::Node *AVL_TREE_CLASS::minValueNode(Node *node) {
     Node *current = node;
     while (current->left != NULL) current = current->left;
     return current;
 }
 
-AVL_TREE_CLASS::Node *AVL_TREE_CLASS::removeroot(Node *root, int key) {
+AVL_TREE_CLASS::Node *AVL_TREE_CLASS::remove(Node *root, int key) {
     if (root == NULL) return root;
     if (key < root->data) root->left = removeroot(root->left, key);
     else if (key > root->data) root->right = removeroot(root->right, key);
@@ -554,7 +508,7 @@ AVL_TREE_CLASS::Node *AVL_TREE_CLASS::removeroot(Node *root, int key) {
             free(temp);
         } else {
 
-            Node *temp = minValueNoderoot(root->right);
+            Node *temp = minValueNode(root->right);
             root->data = temp->data;
 
             root->right = removeroot(root->right, temp->data);
@@ -592,18 +546,14 @@ AVL_TREE_CLASS::AVL_TREE_CLASS() {
     root = NULL;
 }
 
-void AVL_TREE_CLASS::display(char option) {
-    if (option == 'i') { inorder(root); }
-    else if (option == 'r') { preorder(root); }
-    else if (option == 'o') { postorder(root); }
-    else { printf("wrong char!\n"); }
-    printf("\n");
+AVL_TREE_CLASS::~AVL_TREE_CLASS() {
+    root = makeEmpty(root);
 }
 
 void AVL_TREE_CLASS::insert(int a) {
-    root = insertroot(root, a);
+    root = insert(root, a);
 }
 
 void AVL_TREE_CLASS::remove(int a) {
-    root = removeroot(root, a);
+    root = remove(root, a);
 }
