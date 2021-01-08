@@ -1,5 +1,6 @@
 #include "Classes.h"
 #include "Trees.hpp"
+#include "BookDataStructures.hpp"
 /*
  h - testowanie algorytmu HeapSort
  i - testowanie algorytmu InsertionSort
@@ -60,7 +61,7 @@ int main(){
 
 }
 */
-int main(){
+/*int main(){
     AVL_TREE_CLASS tree;
     tree.insert(9);
     tree.insert(5);
@@ -75,5 +76,52 @@ int main(){
     tree.remove(10);
     tree.display('r');
 
-}
-
+}*/
+/*/////////////////////////////////////1.28//////////////////////////////////////////
+/// w zadaniu korzystam z tablicy haszującej i vektora, dzięki tablicy haszującej mam O(1) dostęp do każdego elementu ze zbioru dzięki czemu
+/// zachowuję dodawanie i usuwanie w O(1)
+ using S= DataStructure_1_28;
+int main(){
+ DataStructure_1_28 structure;
+    S::Insert(5,structure);
+    S::Insert(6,structure);
+    S::Insert(7,structure);
+    S::Insert(66,structure);
+    S::Insert(48,structure);
+    S::Insert(21,structure);
+    printf("find not exist in set (22): %d\n",S::Search(22,structure));
+    printf("find exist in set (66), returns index in array: %d\n",S::Search(66,structure));
+    printf("Select returns what was removed : %d\n",S::Select(structure));
+    printf("Insert is a void type function, it returns nothing\n ");
+    S::Insert(99,structure);
+    S::Insert(99,structure);
+    S::Insert(59,structure);
+    S::Select(structure);
+    S::Select(structure);
+    S::Select(structure);
+    S::Select(structure);
+    S::Select(structure);
+}*/
+///////////////////////////1.29//////////////////////////////////////////////
+/*#include <iostream>
+///1.29 w tym zadaniu korzystam z tablicy haszującej, listy oraz dwóch vektorów,
+///w tablicy haszującej trzymam indeksy z wektora i odpowiadające wartości , do listy zgodnie z treścią zadania dodaję elementy na początek
+///w 1 wektorze przechowuję unikalne wartości a w drugim listy ze wskaźnikiami do miejsca gdzie występują w liście te elementy aby
+///mieć w O(1) dostęp do tych elementów.
+int main() {
+    DataStructure_1_29 struc;
+    DataStructure_1_29::push(23, struc);
+    DataStructure_1_29::push(23, struc);
+    DataStructure_1_29::push(23, struc);
+    DataStructure_1_29::push(23, struc);
+    DataStructure_1_29::push(22, struc);
+    DataStructure_1_29::push(22, struc);
+    DataStructure_1_29::push(27, struc);
+    DataStructure_1_29::push(22, struc);
+    DataStructure_1_29::push(23, struc);
+    printf("%d\n", DataStructure_1_29::search(99, struc));
+    printf("%d\n", DataStructure_1_29::search(22, struc));
+    DataStructure_1_29::remove(99, struc);
+    DataStructure_1_29::pop(struc);
+    DataStructure_1_29::pop(struc);
+}*/
