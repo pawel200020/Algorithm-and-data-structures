@@ -102,8 +102,8 @@ int main(){
     S::Select(structure);
     S::Select(structure);
 }*/
-///////////////////////////1.29//////////////////////////////////////////////
-/*#include <iostream>
+/*///////////////////////////1.29//////////////////////////////////////////////
+#include <iostream>
 ///1.29 w tym zadaniu korzystam z tablicy haszującej, listy oraz dwóch vektorów,
 ///w tablicy haszującej trzymam indeksy z wektora i odpowiadające wartości , do listy zgodnie z treścią zadania dodaję elementy na początek
 ///w 1 wektorze przechowuję unikalne wartości a w drugim listy ze wskaźnikiami do miejsca gdzie występują w liście te elementy aby
@@ -124,4 +124,34 @@ int main() {
     DataStructure_1_29::remove(99, struc);
     DataStructure_1_29::pop(struc);
     DataStructure_1_29::pop(struc);
+}*/
+/*////////////////////////////////1.29/////////////////////////////
+///w zadaniu wykorzystuję listę, i dwa vektory. lista, przechowuje elementy dodawane a jeden z vektorów, vektory najmniejszych wartości,
+///do kolejnego vektora w vektorze przechodzimy gdy liczba wpisania w niego ostatnio jest mniejsza od tej którą teraz badamy,
+///ponadto w tabeli adresy przechowuję adresy najmniejszych pól aby uzyskać do nich szybki dostęp w O(1). W językach programowania wykorzystujących garbage colletor,
+///wystaczy tylko odciąć elementy od rodzica najmniejeszego elementu, w c++ należałoby również posprzątać pamięć, ja w zadaniu skorzystałem z wbudowanej struktury ale
+/// można łatwo przerobić tak aby na własnej liście operować.
+/// O(1) zapewniane oczywiście dzięki pamiętaniu adresów, mamy szybki dostęp do danego miejsca w pamięci i szybko tylko odcinamy zbędny koniec, następnie usuwamy poziom
+/// w wektorze który skasowaliśmy. te vektory są w zasadzie takimi przedziałami dla kolejnych warości min. choć pamięciochłonny działa w O(1)
+/// metoda display także nieco tłumaczy zamysł i zarys struktury.
+int main(){
+    DataStructure_1_30 struc;
+    DataStructure_1_30::push(7,struc);
+    DataStructure_1_30::push(6,struc);
+    DataStructure_1_30::push(3,struc);
+    DataStructure_1_30::push(9,struc);
+    DataStructure_1_30::push(4,struc);
+    DataStructure_1_30::push(11,struc);
+    DataStructure_1_30::push(19,struc);
+    DataStructure_1_30::push(82,struc);
+    DataStructure_1_30::push(22,struc);
+    DataStructure_1_30::display(struc);
+    DataStructure_1_30::pop(struc);
+    DataStructure_1_30::display(struc);
+    DataStructure_1_30::pop(struc);
+    DataStructure_1_30::display(struc);
+    DataStructure_1_30::uptomin(struc);
+    DataStructure_1_30::display(struc);
+    DataStructure_1_30::uptomin(struc);
+    DataStructure_1_30::display(struc);
 }*/

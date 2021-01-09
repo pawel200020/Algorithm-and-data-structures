@@ -4,7 +4,6 @@
 #include <vector>
 #include <map>
 #include <list>
-#include <stack>
 
 class DataStructure_1_28 {
     std::vector<int> array;
@@ -34,6 +33,22 @@ public:
     static int search(int, DataStructure_1_29 &);
 
     static int remove(int, DataStructure_1_29 &);
+};
+
+class DataStructure_1_30 {
+    std::list<int> linkedList;
+    std::vector<std::vector<int>> vectorOfMinValues;
+    std::vector<std::vector<std::list<int>::iterator>> vectorOfAddresses;
+    int vectorCounter = 0;
+    int currMin = 0;
+public:
+    static void push(int, DataStructure_1_30 &);
+
+    static void pop(DataStructure_1_30 &);
+
+    static void uptomin(DataStructure_1_30 &);
+
+    static void display(DataStructure_1_30 &);
 };
 
 #endif //INC_2020_10_13_HOMEWORK_BOOKDATASTRUCTURES_HPP
