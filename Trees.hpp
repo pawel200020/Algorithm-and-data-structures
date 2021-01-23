@@ -1,5 +1,6 @@
 #ifndef INC_2020_10_13_HOMEWORK_TREES_HPP
 #define INC_2020_10_13_HOMEWORK_TREES_HPP
+//Zadanie 4
 enum Color {
     RED, BLACK
 };

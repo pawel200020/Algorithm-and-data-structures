@@ -24,10 +24,13 @@ class SORT_CLASS {
     void merge(int *, int, int, int);
 
 public:
-    void mergeSort(int *array, int left, int right);
-
+    //Zadanie 1
     void InsertionSort(int *, int);
 
+    //Zadanie 2
+    void mergeSort(int *array, int left, int right);
+
+    //Zadanie 3
     void heapSort(int *, int);
 
 };
