@@ -2,17 +2,17 @@
 #include "Trees.hpp"
 #include "BookDataStructures.hpp"
 /*
- h - testowanie algorytmu HeapSort
- i - testowanie algorytmu InsertionSort
- m - testowanie algorytmu MergeSort
+ i - testowanie algorytmu InsertionSort //zadanie 1
+ m - testowanie algorytmu MergeSort  //zadanie 2
+ h - testowanie algorytmu HeapSort //zadanie 3
  w parametrach konstruktora klasy TEST_CLASS klasy t1 jako pierwszy argument nalezy podac ilosc testow a w drugim rozmiar tablicy do testowania
  */
 /*int main() {
     TEST_CLASS t1(5, 50);
     t1.test('h');
 }*/
-
 /*
+ //////////////////////zadanie 4///////////////////////////
  main do testowania drzew BST.
  Dozwolone operacje:
  1. display(char) za paramter przyjmuje litere i <- porzadek inorder, o <-porzatek postorder, r <-porzadek preorder
@@ -20,7 +20,9 @@
  3. search(int) zwraca adres szukanego elementu o zawartosci pola data rownemu podanemu w argumencie
  4. remove(int) usuwa wezel o zadanej argumentem wartosci pola data
  */
-
+/*
+ Do nadklasy dałem 2 kluczowe funkcje które w każdym przypadku wyglądają tak samo tzn display() oraz search().
+  */
 /*int main() {
     BST_TREE_CLASS t;
     char orderWrite = 'r';
@@ -37,8 +39,15 @@
     t.remove(30);
     t.display(orderWrite);
 }*/
-/*
-int main(){
+/*main do testowania drzew RBT.
+ Dozwolone operacje:
+ 1. display(char) za paramter przyjmuje litere i <- porzadek inorder, o <-porzatek postorder, r <-porzadek preorder
+ 2. insert(int) liczba do wstawienia
+ 3. search(int) zwraca adres szukanego elementu o zawartosci pola data rownemu podanemu w argumencie
+ 4. remove(int) usuwa wezel o zadanej argumentem wartosci pola data
+ */
+
+/*int main(){
     RED_BLACK_TREE_CLASS2 tree;
     tree.insert(7);
     tree.insert(3);
@@ -52,15 +61,22 @@ int main(){
     tree.insert(6);
     tree.insert(13);
     tree.display('i');
-    tree.deleteByVal(18);
-    tree.deleteByVal(11);
-    tree.deleteByVal(3);
-    tree.deleteByVal(10);
-    tree.deleteByVal(22);
+    tree.remove(18);
+    tree.search(22);
+    tree.remove(11);
+    tree.remove(3);
+    tree.remove(10);
+    tree.remove(22);
     tree.display('i');
 
-}
-*/
+}*/
+/*main do testowania drzew AVL.
+ Dozwolone operacje:
+ 1. display(char) za paramter przyjmuje litere i <- porzadek inorder, o <-porzatek postorder, r <-porzadek preorder
+ 2. insert(int) liczba do wstawienia
+ 3. search(int) zwraca adres szukanego elementu o zawartosci pola data rownemu podanemu w argumencie
+ 4. remove(int) usuwa wezel o zadanej argumentem wartosci pola data
+ */
 /*int main(){
     AVL_TREE_CLASS tree;
     tree.insert(9);
@@ -77,7 +93,8 @@ int main(){
     tree.display('r');
 
 }*/
-/*/////////////////////////////////////1.28//////////////////////////////////////////
+/* ////////////////////Zadanie 5//////////////////////////
+ /////////////////////////////////////1.28//////////////////////////////////////////
 /// w zadaniu korzystam z tablicy haszującej i vektora, dzięki tablicy haszującej mam O(1) dostęp do każdego elementu ze zbioru dzięki czemu
 /// zachowuję dodawanie i usuwanie w O(1)
  using S= DataStructure_1_28;
