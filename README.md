@@ -1,2 +1,2 @@
 # ASD_homework
-Zadania z przedmiotu Algotytmy i struktury danych na kierunku infomatyka UJ
+Exercices form subject "Algorithm and data structures".
